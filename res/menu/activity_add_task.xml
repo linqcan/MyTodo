@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Save button -->
+    <item android:id="@+id/add_task_menu_save"
+        android:title="@string/add_task_menu_save"
+        android:showAsAction="always|withText"
+        
+         />
+    <!-- Cancel button (duplicates navigation button Up) -->
+    <item android:id="@+id/add_task_menu_cancel"
+        android:title="@string/add_task_menu_cancel"
+        android:showAsAction="always|withText"
+        
+         />
+    <!--  android:icon="@drawable/navigation_cancel" -->
+</menu>

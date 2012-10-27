@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/add_task"
+        android:title="@string/menu_bottom_add_task"
+        android:icon="@drawable/add_task"
+        android:orderInCategory="100"
+        android:showAsAction="always|withText" />
+</menu>
