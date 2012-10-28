@@ -2,17 +2,14 @@ package com.linqcan.mytodo;
 
 import java.util.ArrayList;
 
-import android.app.ActionBar;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,17 +19,23 @@ public class MainActivity extends ListActivity {
 
 	private ArrayList<String> itemlist;
 	private ArrayAdapter<String> m_adapter;
+	private TaskProvider tp;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        itemlist = new ArrayList<String>();
-        for(int i = 0; i < 4; ++i){
-        	itemlist.add("Item " + Integer.toString(i));
-        }
-        m_adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,itemlist);
-        setListAdapter(m_adapter);
+        tp = new TaskProvider(getApplicationContext());
+        Cursor mCursor = tp.query();
+        String[] columns = new String[]{"title", "description"};
+        SimpleCursorAdapter mAdapter = new SimpleCursorAdapter(
+        		this, 
+        		android.R.layout.simple_list_item_1, 
+        		mCursor, 
+        		columns, 
+        		new int[] {android.R.id.text1}, 
+        		0);
+        setListAdapter(mAdapter);
         getActionBar().setHomeButtonEnabled(false);
                 
     }

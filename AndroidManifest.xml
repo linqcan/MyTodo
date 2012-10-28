@@ -26,6 +26,13 @@
             android:label="@string/title_activity_add_task"
             android:parentActivityName=".MainActivity" >
         </activity>
+
+        <provider
+            android:name=".TaskProvider"
+            android:authorities="task"
+            android:enabled="false"
+            android:exported="false" >
+        </provider>
     </application>
 
 </manifest>
