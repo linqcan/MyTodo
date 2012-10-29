@@ -20,12 +20,12 @@ public class ViewTaskActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_task);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        
         Intent intent = getIntent();
         taskid = intent.getLongExtra("id", 0);
+        
         mTaskProvider = TaskProvider.getInstance(this);
-        Log.i("ViewTaskActivity", "Fetching task");
         Task task = mTaskProvider.getTaskById(taskid);
-        Log.i("ViewTaskActivity", "Fetched task");
         if(task != null){
         	TextView title = (TextView) findViewById(R.id.view_task_title);
         	TextView desc = (TextView) findViewById(R.id.view_task_description);

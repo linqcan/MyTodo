@@ -54,7 +54,7 @@ public class AddTaskActivity extends Activity {
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-    	Intent intent;
+    	Intent intent = null;
     	switch(item.getItemId()){
     	case android.R.id.home:
     	case R.id.add_task_menu_cancel:
@@ -87,7 +87,13 @@ public class AddTaskActivity extends Activity {
     			return false;
     		}
     		else{
-        		intent = new Intent(this,MainActivity.class);
+    			if(State.ADD == ViewState){
+    				intent = new Intent(this,MainActivity.class);
+    			}
+    			else if(State.EDIT == ViewState){
+    				intent = new Intent(this, ViewTaskActivity.class);
+    				intent.putExtra("id", taskid);
+    			}
         		startActivity(intent);
         		finish();
         		return true;
