@@ -25,14 +25,13 @@ public class MainActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tp = new TaskProvider(getApplicationContext());
-        Cursor mCursor = tp.query();
-        String[] columns = new String[]{"title", "description"};
+        tp = TaskProvider.getInstance(this);
+        Cursor mCursor = tp.getAllAsCursor();
         SimpleCursorAdapter mAdapter = new SimpleCursorAdapter(
         		this, 
         		android.R.layout.simple_list_item_1, 
         		mCursor, 
-        		columns, 
+        		new String[] {"title"}, 
         		new int[] {android.R.id.text1}, 
         		0);
         setListAdapter(mAdapter);
@@ -52,6 +51,7 @@ public class MainActivity extends ListActivity {
     	switch(item.getItemId()){
     		case R.id.add_task:
     			Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
+    			intent.putExtra("action", 0);
     			startActivity(intent);
     		default:
     			return super.onOptionsItemSelected(item);
@@ -61,7 +61,9 @@ public class MainActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
     	super.onListItemClick(l, v, position, id);
-    	Toast clicktoast = Toast.makeText(this, "Clicked " + Integer.toString(position), Toast.LENGTH_SHORT);
-		clicktoast.show();
+    	Intent intent = new Intent(getApplicationContext(),ViewTaskActivity.class);
+    	intent.putExtra("id", id);
+    	startActivity(intent);
+    	
     }
 }

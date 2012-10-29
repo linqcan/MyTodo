@@ -1,29 +1,52 @@
 package com.linqcan.mytodo;
 
-import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
 
 public class AddTaskActivity extends Activity {
-
+	
+	public enum State{
+		ADD,EDIT
+	}
+	
+	private State ViewState;
+	private long taskid;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+        
+        Intent intent = getIntent();
+        int action = intent.getIntExtra("action", 0);
+        taskid = intent.getLongExtra("id", 0);
+        if(action == 1){
+        	ViewState = State.EDIT;
+        	populateFields(taskid);
+        }
+        else{
+        	ViewState = State.ADD;
+        }
+    }
+    
+    private void populateFields(long id){    	
+    	TaskProvider tp = TaskProvider.getInstance(this);
+    	Task task = tp.getTaskById(id);
+    	EditText title = (EditText) findViewById(R.id.add_task_title);
+    	EditText desc = (EditText) findViewById(R.id.add_task_description);
+    	title.setText(task.getTitle());
+    	desc.setText(task.getDescription());
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	// TODO Auto-generated method stub
     	MenuInflater inflater = getMenuInflater();
     	inflater.inflate(R.menu.activity_add_task, menu);
     	return super.onCreateOptionsMenu(menu);
@@ -47,13 +70,20 @@ public class AddTaskActivity extends Activity {
     			Toast.makeText(getApplicationContext(), "Empty fields!", Toast.LENGTH_SHORT).show();
     			return false;
     		}
-    		TaskProvider tp = new TaskProvider(getApplicationContext());
-    		ContentValues cv = new ContentValues();
-    		cv.put("title", title.getText().toString());
-    		cv.put("description", desc.getText().toString());
-    		boolean isinserted = tp.insert(cv);
-    		if(!isinserted){
-    			Toast.makeText(getApplicationContext(), "Could not insert data!", Toast.LENGTH_SHORT).show();
+    		TaskProvider tp = TaskProvider.getInstance(this);
+    		Task task = new Task();
+    		task.setId(taskid);
+    		task.setTitle(title.getText().toString());
+    		task.setDescription(desc.getText().toString());
+    		boolean resultOk = false;
+    		if(State.ADD == ViewState){
+    			resultOk = tp.insert(task);
+    		}
+    		else if(State.EDIT == ViewState){
+    			resultOk = tp.update(task);
+    		}
+    		if(!resultOk){
+    			Toast.makeText(getApplicationContext(), "Error: Could not insert data!", Toast.LENGTH_SHORT).show();
     			return false;
     		}
     		else{

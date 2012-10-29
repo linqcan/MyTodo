@@ -33,6 +33,15 @@
             android:enabled="false"
             android:exported="false" >
         </provider>
+
+        <activity
+            android:name=".ViewTaskActivity"
+            android:label="@string/title_activity_view_task"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.linqcan.mytodo.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

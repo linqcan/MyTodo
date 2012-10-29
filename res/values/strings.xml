@@ -4,13 +4,22 @@
     <string name="menu_bottom_add_task">Add Task</string>
     <string name="title_activity_main">My Items</string>
     <string name="app_title">MyTodo</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="menu_settings">Settings</string>
-    <string name="title_activity_add_task">Add Task</string>
     
+    <string name="title_activity_add_task">Add Task</string>
     <string name="add_task_hint_text">Task title</string>
     <string name="add_task_hint_description">Task description</string>
     <string name="add_task_menu_save">Save</string>
     <string name="add_task_menu_cancel">Cancel</string>
+    
+    <string name="title_activity_view_task">View Task</string>
+    <string name="view_task_menu_edit">Edit</string>
+    <string name="view_task_menu_delete">Delete</string>
+    
+    <string name="cancel_button">Cancel</string>
+    <string name="ok_button">OK</string>
+    <string name="delete_message">Delete this task?</string>
+    
+    <string name="title_string">Title</string>
+    <string name="description_string">Description</string>
 
 </resources>
