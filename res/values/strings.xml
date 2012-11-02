@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">MyTodo</string>
+    <string name="app_desc">Keep track of the things you have to do with MyTodo</string>
     <string name="menu_bottom_add_task">Add Task</string>
     <string name="title_activity_main">My Items</string>
     <string name="app_title">MyTodo</string>
@@ -11,9 +12,16 @@
     <string name="add_task_menu_save">Save</string>
     <string name="add_task_menu_cancel">Cancel</string>
     
+    <string name="title_activity_edit_task">Edit Task</string>
+    
     <string name="title_activity_view_task">View Task</string>
     <string name="view_task_menu_edit">Edit</string>
     <string name="view_task_menu_delete">Delete</string>
+    <string name="view_task_empty_string">"
+    <b>Welcome to MyTodo!</b>
+    \nSelect a task from the list on the side or add a new task by pressing ADD TASK.
+    \n\nCreated by Erik Lindqvist"
+    </string>
     
     <string name="cancel_button">Cancel</string>
     <string name="ok_button">OK</string>
@@ -21,5 +29,6 @@
     
     <string name="title_string">Title</string>
     <string name="description_string">Description</string>
+
 
 </resources>

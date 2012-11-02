@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:hint="@string/add_task_hint_text"
-        android:inputType="text"
+        android:inputType="textCapSentences"
         android:lines="1"
         android:padding="16dp" />
 

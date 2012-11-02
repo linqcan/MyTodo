@@ -2,22 +2,23 @@ package com.linqcan.mytodo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.linqcan.mytodo.AddTaskFragment.addTaskListener;
+import com.linqcan.mytodo.AddTaskFragment.editTaskListener;
 
-public class AddTaskActivity extends Activity implements addTaskListener{
+public class EditTaskActivity extends Activity implements editTaskListener, addTaskListener {
 	
 	private static void putLogMessage(String msg){
-		MainActivity.putLogMessage("Linqcan::AddTaskActivity", msg);
+		MainActivity.putLogMessage("Linqcan::EditTaskActivity", msg);
 	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);		
 		putLogMessage("Call orientation validation");
 		MainActivity.validateOrientation(getResources());
 		if(MainActivity.isDualPane()){
@@ -40,18 +41,22 @@ public class AddTaskActivity extends Activity implements addTaskListener{
 		outState.putString("title", fieldTitle.getText().toString());
 		outState.putString("description", fieldDesc.getText().toString());
 		outState.putBoolean("mytodo", true);
-	}	
-
-	public void onSaveTask(Task task) {
-		putLogMessage("onSaveTask");
+	}
+	
+	public void onUpdateTask(Task task) {
+		putLogMessage("onUpdateTask");
 		Intent data = new Intent();
-		data.putExtra("task", task);
-		setResult(0, data);
-		finish();
+		data.putExtra("task",task);
+		setResult(0,data);
+		finish();		
+	}
+	
+	public void onCancel() {
+		finish();		
+	}
+	
+	public void onSaveTask(Task task) {
+		putLogMessage("This method should not have ben called!");		
 	}
 
-	public void onCancel() {
-		setResult(1);
-		finish();
-	}
 }

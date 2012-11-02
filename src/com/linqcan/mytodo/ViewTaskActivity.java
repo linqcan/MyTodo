@@ -1,76 +1,73 @@
 package com.linqcan.mytodo;
 
+import com.linqcan.mytodo.ViewTaskFragment.viewTaskListener;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
-public class ViewTaskActivity extends Activity {
+public class ViewTaskActivity extends Activity implements viewTaskListener{	
+
+	private long mTaskid= -1;
 	
-	private static TaskProvider mTaskProvider;
-	private long taskid;
+	private static void putLogMessage(String msg){
+		MainActivity.putLogMessage("Linqcan::ViewTaskActivity", msg);
+	}
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		putLogMessage("Call orientation validation");
+		MainActivity.validateOrientation(getResources());
+		
+		if(MainActivity.isDualPane()){
+			finish();
+			return;
+		}
+		
+		setContentView(R.layout.view_task_activity);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		Bundle args = getIntent().getExtras();
+		if(args != null){
+			mTaskid = args.getLong("id");
+		}
+		else{
+			finish();
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);		
+		if(data != null){
+			if(requestCode == 0 && resultCode == 0){
+				putLogMessage("Received updated data from EditTask");
+				//Just pass the data on to the main activity
+				// and show the task list again, for now...
+				setResult(0, data);
+				finish();
+			}
+		}
+	}
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_task);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        
-        Intent intent = getIntent();
-        taskid = intent.getLongExtra("id", 0);
-        
-        mTaskProvider = TaskProvider.getInstance(this);
-        Task task = mTaskProvider.getTaskById(taskid);
-        if(task != null){
-        	TextView title = (TextView) findViewById(R.id.view_task_title);
-        	TextView desc = (TextView) findViewById(R.id.view_task_description);
-        	title.setText(task.getTitle());
-        	desc.setText(task.getDescription());
-        }
-        else{
-        	Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
-        }
-    }
+	public void deleteTask(long taskid) {
+		Intent data = new Intent();
+		data.putExtra("id", taskid);
+		setResult(1, data);
+		finish();
+	}
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_view_task, menu);
-        return true;
-    }
-
-    
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-            case R.id.view_task_delete:
-            	DeleteDialog dd = new DeleteDialog(this);
-            	dd.show();
-            	return true;
-            case R.id.view_task_edit:
-            	Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
-            	intent.putExtra("action", 1);
-            	intent.putExtra("id", taskid);
-            	startActivity(intent);
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    
-    public void dodelete(){    	
-    	if(mTaskProvider.delete(taskid)){
-    		Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-    		startActivity(intent);
-    	}
-    	else{
-    		Toast.makeText(this, "An error occured while deleting task", Toast.LENGTH_SHORT).show();
-    	}
-    }
+	public void editTask(long taskid) {
+		Intent data = new Intent(getApplicationContext(),EditTaskActivity.class);
+		data.putExtra("id", taskid);
+		startActivityForResult(data, 0);		
+	}
+	
+	public long getTaskid(){
+		return this.mTaskid;
+	}
 
 }

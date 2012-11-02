@@ -1,8 +1,14 @@
 package com.linqcan.mytodo;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable{
 	
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5868552206370971797L;
 	private long id;
 	private String title;
 	private String description;
