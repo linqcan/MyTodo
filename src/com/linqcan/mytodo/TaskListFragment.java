@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.app.ListFragment;
 import android.graphics.Color;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +20,7 @@ public class TaskListFragment extends ListFragment {
 		public void viewTask(long taskid);
 		public void addTask();
 	}
-	
+		
 	private static void putLogMessage(String msg){
 		MainActivity.putLogMessage("Linqcan::TaskListFragment",msg);
 	}
@@ -35,8 +36,14 @@ public class TaskListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         SimpleCursorAdapter adapter = ViewHelper.getTaskListAdapter(getActivity());
-        setListAdapter(adapter);
-        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        if(adapter.getCount() > 0){
+        	setListAdapter(adapter);
+        	getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        	showNoItemsLabel(false);
+        }
+        else{
+        	showNoItemsLabel(true);
+        }
     	super.onActivityCreated(savedInstanceState);
     }
     
@@ -71,5 +78,15 @@ public class TaskListFragment extends ListFragment {
     	catch(ClassCastException e){return;}
     	getListView().setItemChecked(position, true);
     	listener.viewTask(id);
+    }
+    
+    private void showNoItemsLabel(boolean show){
+    	TextView noitems = (TextView) getView().findViewById(R.id.list_noitems);
+    	if(show){
+    		noitems.setVisibility(View.VISIBLE);
+    	}
+    	else{
+    		noitems.setVisibility(View.GONE);
+    	}
     }
 }

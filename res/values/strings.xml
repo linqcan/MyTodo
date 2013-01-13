@@ -6,6 +6,8 @@
     <string name="title_activity_main">My Items</string>
     <string name="app_title">MyTodo</string>
     
+    <string name="no_items">No tasks available</string>
+    
     <string name="title_activity_add_task">Add Task</string>
     <string name="add_task_hint_text">Task title</string>
     <string name="add_task_hint_description">Task description</string>
