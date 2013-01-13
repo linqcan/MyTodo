@@ -1,5 +1,6 @@
 #MyTodo
 An Android project created for the purpose of teaching myself Android programming.
+This application only supports Android 4.0.x and above!
 
 This particular branch adds dual pane view for the application in landscape mode on any Android device.
 
