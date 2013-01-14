@@ -7,3 +7,6 @@ This particular branch adds dual pane view for the application in landscape mode
 ##Known issues
 * When viewing a task and rotating from landscape to portrait, pressing the back-key in portrait mode shows an empty view.
 * When rotating from landscape to portrait the activity stack increases and it takes "number of rotations" minus 1 back key presses to exit the application.
+
+##TODO
+* Add "due date" for each task
