@@ -58,5 +58,4 @@ public class EditTaskActivity extends Activity implements editTaskListener, addT
 	public void onSaveTask(Task task) {
 		putLogMessage("This method should not have ben called!");		
 	}
-
 }

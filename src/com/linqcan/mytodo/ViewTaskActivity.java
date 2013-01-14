@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 public class ViewTaskActivity extends Activity implements viewTaskListener{	
 
@@ -51,6 +52,19 @@ public class ViewTaskActivity extends Activity implements viewTaskListener{
 				finish();
 			}
 		}
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+			case android.R.id.home:
+				putLogMessage("Up clicked!");
+				Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);
+				finish();
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void deleteTask(long taskid) {
