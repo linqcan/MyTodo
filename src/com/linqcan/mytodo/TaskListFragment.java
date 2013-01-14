@@ -84,9 +84,11 @@ public class TaskListFragment extends ListFragment {
     	TextView noitems = (TextView) getView().findViewById(R.id.list_noitems);
     	if(show){
     		noitems.setVisibility(View.VISIBLE);
+    		getListView().setVisibility(View.GONE);
     	}
     	else{
     		noitems.setVisibility(View.GONE);
+    		getListView().setVisibility(View.VISIBLE);
     	}
     }
 }

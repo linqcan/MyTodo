@@ -200,7 +200,7 @@ public class MainActivity extends Activity
 		if(mDualPane){
 			AddTaskFragment fragment = new AddTaskFragment();
 			Bundle args = new Bundle();
-			args.putInt("mode", R.integer.ADD);
+			args.putInt("mode", 0);
 			fragment.setArguments(args);
 			switchFragment(fragment, addTaskTag);
 		}
@@ -221,7 +221,7 @@ public class MainActivity extends Activity
 			AddTaskFragment fragment = new AddTaskFragment();
 			Bundle args = new Bundle();
 			args.putLong("id", taskid);
-			args.putInt("mode", R.integer.EDIT);
+			args.putInt("mode", 1);
 			fragment.setArguments(args);
 			switchFragment(fragment,editTaskTag);
 		}

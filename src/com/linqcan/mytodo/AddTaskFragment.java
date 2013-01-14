@@ -81,10 +81,10 @@ public class AddTaskFragment extends Fragment{
     			id = args.getLong("id", -1);
     			
   				switch(mode){
-					case R.integer.ADD:
+					case 0:
 						ViewState = State.ADD;
 						break;
-					case R.integer.EDIT:
+					case 1:
 						ViewState = State.EDIT;
 						break;
   				}
