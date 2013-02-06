@@ -53,15 +53,6 @@ public class MainActivity extends Activity
 		}
 	}
 	
-//	private static void putToast(Context context,String msg){
-//		Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
-//	}
-//	
-//	private void localPutToast(String msg){
-//		putToast(getApplicationContext(), msg);
-//	}
-//
-	
 	private void resetLastFragment(){
 		putLogMessage("Resetting last fragment variable");
 		mLastFragment = null;
